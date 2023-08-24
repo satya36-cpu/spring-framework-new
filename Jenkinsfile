@@ -8,7 +8,7 @@ pipeline {
         stage('vcs') {
             steps {
                 git url: 'https://github.com/satya36-cpu/spring-framework-new.git',
-                    branch: 'uat'
+                    branch: 'master'
             }
         }
         stage('build') { 
