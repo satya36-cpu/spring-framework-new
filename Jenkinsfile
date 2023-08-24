@@ -24,5 +24,11 @@ pipeline {
                 junit testResults: '**/surefire-reports/TEST-*.xml'
             }
         }
+        stage('docker image build & push') {
+            steps {
+                sh 'docker image build -t satyabrata36/spcnow:1.0 .'
+                sh 'docker image push satyabrata36/spcnow:1.0'
+            }
+        }
     }
 }
