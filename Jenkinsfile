@@ -30,5 +30,11 @@ pipeline {
                 sh 'docker image push satyabrata36/spcnow:1.0'
             }
         }
+        stage('deploy on k8s') {
+		    agent { label 'K8S_DEPLOY' }
+			steps {
+			    sh 'kubectl apply -f deployment.yaml'
+			}
+		}
     }
 }
