@@ -1,0 +1,40 @@
+---
+version: "3.9"
+services:
+  webserver:
+    image: spcnow:1.0
+    ports:
+      - target: 80
+        published: 8081
+        protocol: tcp
+        mode: host
+    networks:
+      - webserver-net 
+    volumes:
+      - dbserver  
+  dbserver:
+    image: mysql:5.6
+    ports:
+      - target: 3306
+        published: 8082
+        protocol: tcp
+        mode: host
+    networks: 
+      - webserver-net
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=satyadevops 
+      - MYSQL_PASSWORD=satyadevops 
+    volumes:
+      - type: volume
+        source: dbserver
+        target: /var/lib/mysql
+volumes:
+  dbserver:
+             
+networks:       
+  webserver-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.100.0/24"        
